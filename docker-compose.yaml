@@ -1,0 +1,18 @@
+version: '2.1'
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/comparator/current
+      - ./conf/sites-enabled:/etc/nginx/conf.d/
+    depends_on:
+      - php
+    links:
+      - php
+
+  php:
+    build: .
+    volumes:
+      - .:/var/www/comparator/current
